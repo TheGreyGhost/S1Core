@@ -8,7 +8,7 @@ import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 @TransformerExclusions({"com.shieldbug1.core"})
-@MCVersion("1.7.10")
+@MCVersion("1.8")
 @SortingIndex(0)
 public final class S1CorePlugin implements IFMLLoadingPlugin
 {

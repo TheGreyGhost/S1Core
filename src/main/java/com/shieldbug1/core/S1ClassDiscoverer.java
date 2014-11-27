@@ -1,7 +1,7 @@
 package com.shieldbug1.core;
 
-import static org.apache.logging.log4j.Level.ERROR;
-import static org.apache.logging.log4j.Level.WARN;
+import static com.shieldbug1.core.S1Core.MOD_ID;
+import static org.apache.logging.log4j.Level.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,7 +50,7 @@ public class S1ClassDiscoverer //Based off CB's ClassDiscoverer
 		HashSet<String> searchedSources = Sets.newHashSet();
 		for(File minecraftSource : this.loader.getParentSources())
 		{
-			System.out.println(minecraftSource.getName());
+			FMLLog.log(MOD_ID, TRACE, "Scanning %s source for %s implementations", minecraftSource, this.classTypes);
 			if(searchedSources.contains(minecraftSource.getAbsolutePath()) || !this.checkModsDirectory(minecraftSource)) //Have we searched this already?
 			{
 				continue;
