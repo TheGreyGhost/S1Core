@@ -35,7 +35,7 @@ public class WorldTransformer implements IClassTransformer
 		InsnList patch = new InsnList();
 		
 		patch.add(new VarInsnNode(ALOAD, 4));
-		patch.add(new MethodInsnNode(INVOKESTATIC, S1CorePlugin.class.getName().replace('.', '/'), "onTileEntityCreated", getMethodDescriptor(VOID_TYPE, TILE_ENTITY_TYPE), false));
+		patch.add(new MethodInsnNode(INVOKESTATIC, S1CoreHooks.class.getName().replace('.', '/'), "onTileEntityCreated", getMethodDescriptor(VOID_TYPE, TILE_ENTITY_TYPE), false));
 		method.instructions.insertBefore(instruction, patch);
 
 		return makeBytes(classNode, COMPUTE_MAXS | COMPUTE_FRAMES);
