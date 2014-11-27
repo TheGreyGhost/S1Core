@@ -2,10 +2,9 @@ package com.shieldbug1.core.internal.proxy;
 
 import static com.shieldbug1.core.internal.handler.InternalServerEventHandler.INSTANCE;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import com.shieldbug1.core.event.EventDispatcher;
-
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public final class InternalServerProxy extends InternalProxyBase
 {

@@ -1,9 +1,9 @@
 package com.shieldbug1.core.internal.handler;
 
-import com.shieldbug1.lib.util.ServerUtils;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
+import com.shieldbug1.lib.util.ServerUtils;
 
 public final class InternalServerEventHandler
 {

@@ -2,6 +2,8 @@ package com.shieldbug1.core.util;
 
 import java.io.*;
 
+import net.minecraftforge.fml.common.FMLLog;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
 
@@ -11,8 +13,6 @@ import com.shieldbug1.core.internal.InternalProperties;
 import com.shieldbug1.core.schematic.Schematic;
 import com.shieldbug1.core.schematic.SchematicSize;
 import com.shieldbug1.lib.java.Java;
-
-import cpw.mods.fml.common.FMLLog;
 
 public final class ResourceHelper
 {

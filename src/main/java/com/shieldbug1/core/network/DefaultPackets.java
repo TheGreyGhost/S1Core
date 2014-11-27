@@ -2,14 +2,13 @@ package com.shieldbug1.core.network;
 
 import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.Side;
 
 import com.shieldbug1.core.S1Core;
 import com.shieldbug1.core.entity.extended.ISynchronisedEntityProperties;
 import com.shieldbug1.lib.network.NetworkHelper;
-
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.*;
-import cpw.mods.fml.relauncher.Side;
 
 public final class DefaultPackets
 {

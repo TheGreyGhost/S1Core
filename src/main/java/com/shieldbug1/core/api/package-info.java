@@ -4,7 +4,7 @@
  */
 @API(apiVersion = "1.0", owner = S1Core.MOD_ID, provides = "S1CORE|API")
 package com.shieldbug1.core.api;
-import com.shieldbug1.core.S1Core;
+import net.minecraftforge.fml.common.API;
 
-import cpw.mods.fml.common.API;
+import com.shieldbug1.core.S1Core;
 

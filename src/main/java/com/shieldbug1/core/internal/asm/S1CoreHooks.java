@@ -14,7 +14,7 @@ public final class S1CoreHooks
 	 */
 	public static void onTileEntityCreated(TileEntity tileEntity)
 	{
-		if(tileEntity instanceof IPlaceNotified && !tileEntity.getWorldObj().isRemote)
+		if(tileEntity instanceof IPlaceNotified && !tileEntity.getWorld().isRemote)
 		{
 			((IPlaceNotified)tileEntity).onPlaced();
 		}

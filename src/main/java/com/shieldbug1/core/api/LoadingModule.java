@@ -1,6 +1,6 @@
 package com.shieldbug1.core.api;
 
-import cpw.mods.fml.common.event.*;
+import net.minecraftforge.fml.common.event.*;
 
 /**
  * Implement this interface on any class that should run during loading.

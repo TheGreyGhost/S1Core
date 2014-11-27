@@ -2,10 +2,10 @@ package com.shieldbug1.core.internal.asm;
 
 import java.util.Map;
 
-import cpw.mods.fml.relauncher.*;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
+import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 @TransformerExclusions({"com.shieldbug1.core"})
 @MCVersion("1.7.10")

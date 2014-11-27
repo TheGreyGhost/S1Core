@@ -2,6 +2,10 @@ package com.shieldbug1.core;
 
 import java.util.List;
 
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.event.*;
+
 import com.google.common.collect.Lists;
 import com.shieldbug1.core.api.LoadingModule;
 import com.shieldbug1.core.internal.asm.InternalEnvironment;
@@ -12,12 +16,8 @@ import com.shieldbug1.lib.mods.S1Mods;
 import com.shieldbug1.lib.mods.api.ModBase;
 import com.shieldbug1.lib.mods.update.*;
 
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.*;
-
 @Mod(modid = S1Core.MOD_ID, name = S1Core.MOD_NAME, version = S1Core.VERSION,
-dependencies = "required-after:Forge@[10.13.2.1236,);"
+dependencies = "required-after:Forge@[11.14.0.1239,);"
 		+ "after:NotEnoughItems;"
 		+ "after:Waila;"
 		+ "after:ee3;"

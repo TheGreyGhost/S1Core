@@ -3,7 +3,7 @@ package com.shieldbug1.core.tileentity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 import com.google.common.base.Strings;
 import com.shieldbug1.core.network.DefaultPackets;
@@ -11,13 +11,13 @@ import com.shieldbug1.core.network.DefaultPackets;
 public abstract class TileEntityBase extends TileEntity
 {
 	/** The direction this TileEntity is facing. */
-	protected ForgeDirection orientation;
+	protected EnumFacing orientation;
 	/** The custom-name this TileEntity has. */
 	protected String customName;
 	
 	protected TileEntityBase()
 	{
-		this.orientation = ForgeDirection.SOUTH; //default direction
+		this.orientation = EnumFacing.SOUTH; //default direction
 		this.customName = "";
 	}
 	
@@ -34,7 +34,7 @@ public abstract class TileEntityBase extends TileEntity
 	public final void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
-		this.orientation = ForgeDirection.values()[compound.getByte("orientation")];
+		this.orientation = EnumFacing.values()[compound.getByte("orientation")];
 		this.customName = compound.getString("customName");
 		this.readTileEntityData(compound);
 	}
@@ -52,7 +52,7 @@ public abstract class TileEntityBase extends TileEntity
 	/**
 	 * @return the direction this tile entity is facing.
 	 */
-	public final ForgeDirection getOrientation()
+	public final EnumFacing getOrientation()
 	{
 		return this.orientation;
 	}
@@ -60,9 +60,9 @@ public abstract class TileEntityBase extends TileEntity
 	/**
 	 * @param direction - the direction to make this tile entity face.
 	 */
-	public final void setOrientation(ForgeDirection direction)
+	public final void setOrientation(EnumFacing direction)
 	{
-		this.orientation = direction != null ? direction : ForgeDirection.SOUTH;
+		this.orientation = direction != null ? direction : EnumFacing.SOUTH;
 		this.markDirty();
 	}
 	

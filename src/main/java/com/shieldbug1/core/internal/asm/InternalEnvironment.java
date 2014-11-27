@@ -5,6 +5,9 @@ import static org.apache.logging.log4j.Level.*;
 import java.io.File;
 import java.util.Map;
 
+import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.relauncher.IFMLCallHook;
+
 import com.google.common.base.Predicate;
 import com.shieldbug1.core.S1ClassDiscoverer;
 import com.shieldbug1.core.S1Core;
@@ -12,9 +15,6 @@ import com.shieldbug1.core.api.LoadingModule;
 import com.shieldbug1.core.internal.Hacks;
 import com.shieldbug1.core.util.ResourceHelper;
 import com.shieldbug1.lib.java.Java;
-
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.relauncher.IFMLCallHook;
 
 public class InternalEnvironment implements IFMLCallHook
 {

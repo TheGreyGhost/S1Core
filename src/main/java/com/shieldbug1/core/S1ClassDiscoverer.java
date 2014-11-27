@@ -10,6 +10,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.relauncher.CoreModManager;
 
 import org.objectweb.asm.tree.ClassNode;
 
@@ -18,9 +20,6 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.*;
 import com.shieldbug1.lib.asm.ASMHelper;
 import com.shieldbug1.lib.java.Java;
-
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.relauncher.CoreModManager;
 
 public class S1ClassDiscoverer //Based off CB's ClassDiscoverer
 {

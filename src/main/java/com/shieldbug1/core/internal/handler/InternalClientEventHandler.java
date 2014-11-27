@@ -3,14 +3,13 @@ package com.shieldbug1.core.internal.handler;
 import java.util.List;
 
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.fml.client.GuiModList;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.shieldbug1.core.S1Core;
 import com.shieldbug1.lib.java.ReflectionCache;
-
-import cpw.mods.fml.client.GuiModList;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.ModContainer;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class InternalClientEventHandler
 {

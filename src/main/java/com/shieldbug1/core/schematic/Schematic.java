@@ -6,13 +6,12 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameData;
 
 import com.google.common.collect.Lists;
 import com.google.gson.*;
-import com.shieldbug1.lib.area.WorldPosition;
-
-import cpw.mods.fml.common.registry.GameData;
 
 /**
  * This is the schematic class for World generation. They should be cached, and only recreated when lost.
@@ -61,7 +60,7 @@ public final class Schematic
 	 */
 	public void setBlock(int x, int y, int z, Block block)
 	{
-		this.nameArray[y][x][z] = GameData.getBlockRegistry().getNameForObject(block);
+		this.nameArray[y][x][z] = (String) GameData.getBlockRegistry().getNameForObject(block);
 		this.blockArray[y][x][z] = block;
 	}
 	
@@ -107,17 +106,9 @@ public final class Schematic
 	}
 	
 	/**
-	 * Spawns at given position. See {@link #spawnInWorld(World, int, int, int)}.
-	 */
-	public void spawnInWorld(WorldPosition position)
-	{
-		this.spawnInWorld(position.getWorld(), position.x, position.y, position.z);
-	}
-	
-	/**
 	 * Spawns in the given x, y, z  coordinates in the world.
 	 */
-	public void spawnInWorld(World world, int x, int y, int z)
+	public void spawnInWorld(World world, BlockPos pos)
 	{
 		if(!world.isRemote) //Only set blocks on server
 		{
@@ -131,11 +122,11 @@ public final class Schematic
 						final Block block = this.blockArray[i][j][k];
 						if(block != null)
 						{
-							world.setBlock(
-									x + (this.flipX ? this.size.value() - j : j),
-									y + (this.flipY ? this.size.value() - i : i),
-									z + (this.flipZ ? this.size.value() - k : k),
-									block, meta, 3);
+							world.setBlockState(
+									pos.add(this.flipX ? this.size.value() - j : j,
+									this.flipY ? this.size.value() - i : i,
+									this.flipZ ? this.size.value() - k : k),
+									block.getStateFromMeta(meta), 3);
 						}
 					}
 				}
@@ -146,7 +137,7 @@ public final class Schematic
 	/**
 	 * Spawns in the world, but doesn't override any blocks.
 	 */
-	public void spawnInWorldWherePossible(World world, int x, int y, int z)
+	public void spawnInWorldWherePossible(World world, BlockPos start)
 	{
 		if(!world.isRemote) //Only set blocks on server
 		{
@@ -160,12 +151,13 @@ public final class Schematic
 						final Block block = this.blockArray[i][j][k];
 						if(block != null)
 						{
-							final int xPos = x + (this.flipX ? this.size.value() - j : j);
-							final int yPos = y + (this.flipY ? this.size.value() - i : i);
-							final int zPos = z + (this.flipZ ? this.size.value() - k : k);
-							if(world.getBlock(xPos, yPos, zPos) == Blocks.air)
+							BlockPos pos = start.add(	this.flipX ? this.size.value() - j : j,
+														this.flipY ? this.size.value() - i : i,
+														this.flipZ ? this.size.value() - k : k);
+							
+							if(world.getBlockState(pos).getBlock() == Blocks.air)
 							{
-								world.setBlock(xPos, yPos, zPos, block, meta, 3);
+								world.setBlockState(pos, block.getStateFromMeta(meta), 3);
 							}
 						}
 					}
@@ -175,18 +167,10 @@ public final class Schematic
 	}
 	
 	/**
-	 * See {@link #spawnInWorldWherePossible(World, int, int, int)}
-	 */
-	public void spawnInWorldWherePossible(WorldPosition position)
-	{
-		this.spawnInWorldWherePossible(position.getWorld(), position.x, position.y, position.z);
-	}
-	
-	/**
 	 * Breaks all the blocks in this schematic-defined area.
 	 * @return an itemstack of all drops of the blocks on the server, and an empty list on the client.
 	 */
-	public List<ItemStack> breakBlocks(World world, int x, int y, int z)
+	public List<ItemStack> breakBlocks(World world, BlockPos start, int fortuneLevel)
 	{
 		List<ItemStack> drops = Lists.newArrayListWithExpectedSize(this.size.value() * this.size.value() * this.size.value() / 2); //Half the block expected to drop something approximately.
 		if(!world.isRemote) //Only break blocks on the server.
@@ -197,35 +181,27 @@ public final class Schematic
 				{
 					for(int k = 0; k < this.size.value(); k++)//z-axis
 					{
-						final int xPos = x + (this.flipX ? this.size.value() - j : j);
-						final int yPos = y + (this.flipY ? this.size.value() - i : i);
-						final int zPos = z + (this.flipZ ? this.size.value() - k : k);
-						final Block block = world.getBlock(xPos, yPos, zPos);
+						BlockPos pos = start.add(	this.flipX ? this.size.value() - j : j,
+								this.flipY ? this.size.value() - i : i,
+								this.flipZ ? this.size.value() - k : k);
+						final Block block = world.getBlockState(pos).getBlock();
 						if(block != Blocks.air)
 						{
-							drops.addAll(block.getDrops(world, xPos, yPos, zPos, world.getBlockMetadata(xPos, yPos, zPos), 0)); //Adds all drops to array list.
-							world.setBlockToAir(xPos, yPos, zPos);
+							drops.addAll(block.getDrops(world, pos, world.getBlockState(pos), fortuneLevel)); //Adds all drops to array list.
+							world.setBlockToAir(pos);
 						}
 					}
 				}
 			}			
 		}
 		return drops;
-	}
-	
-	/**
-	 * See {@link #breakBlocks(World, int, int, int)}
-	 */
-	public List<ItemStack> breakBlocks(WorldPosition position)
-	{
-		return this.breakBlocks(position.getWorld(), position.x, position.y, position.z);
 	}
 	
 	/**
 	 * Breaks and replaces all blocks.
 	 * @return a list of all of the blocks drops on the server, and an empty list on the client.
 	 */
-	public List<ItemStack> breakAndReplaceBlocks(World world, int x, int y, int z)
+	public List<ItemStack> breakAndReplaceBlocks(World world, BlockPos start, int fortuneLevel)
 	{
 		List<ItemStack> drops = Lists.newArrayListWithExpectedSize(this.size.value() * this.size.value() * this.size.value() / 2); //Half the block expected to drop something approximately.
 		if(!world.isRemote) //Only break blocks on the server.
@@ -236,16 +212,16 @@ public final class Schematic
 				{
 					for(int k = 0; k < this.size.value(); k++)//z-axis
 					{
-						final int xPos = x + (this.flipX ? this.size.value() - j : j);
-						final int yPos = y + (this.flipY ? this.size.value() - i : i);
-						final int zPos = z + (this.flipZ ? this.size.value() - k : k);
-						final Block block = world.getBlock(xPos, yPos, zPos);
+						final BlockPos pos = start.add(	this.flipX ? this.size.value() - j : j,
+								this.flipY ? this.size.value() - i : i,
+								this.flipZ ? this.size.value() - k : k);
+						final Block block = world.getBlockState(pos).getBlock();
 						final Block blockToSet = this.blockArray[i][j][k];
 						final int metaToSet = this.metaArray[i][j][k];
 						if(block != Blocks.air && blockToSet != null)
 						{
-							drops.addAll(block.getDrops(world, xPos, yPos, zPos, world.getBlockMetadata(xPos, yPos, zPos), 0)); //Adds all drops to array list.
-							world.setBlock(xPos, yPos, zPos, blockToSet, metaToSet, 3);
+							drops.addAll(block.getDrops(world, pos, world.getBlockState(pos), fortuneLevel)); //Adds all drops to array list.
+							world.setBlockState(pos, blockToSet.getStateFromMeta(metaToSet), 3);
 						}
 					}
 				}
@@ -253,15 +229,6 @@ public final class Schematic
 		}
 		return drops;
 	}
-	
-	/**
-	 * See {@link #breakAndReplaceBlocks(World, int, int, int)}
-	 */
-	public List<ItemStack> breakAndReplaceBlocks(WorldPosition position)
-	{
-		return this.breakAndReplaceBlocks(position.getWorld(), position.x, position.y, position.z);
-	}
-	
 	
 	/*			SERIALISATION			*/
 	

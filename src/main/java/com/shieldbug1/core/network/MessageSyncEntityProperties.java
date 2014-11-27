@@ -2,12 +2,11 @@ package com.shieldbug1.core.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
 
 import com.shieldbug1.core.entity.extended.ISynchronisedEntityProperties;
-
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.common.network.simpleimpl.*;
 
 /**
  * Should only be used internally.

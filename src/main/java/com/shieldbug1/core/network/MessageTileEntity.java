@@ -3,9 +3,9 @@ package com.shieldbug1.core.network;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
 /**
  * Default IMessage class to synchronise most tile entities.
  *
@@ -47,12 +47,14 @@ public class MessageTileEntity implements IMessage
 		@Override
 		public IMessage onMessage(MessageTileEntity message, MessageContext ctx)
 		{
-			TileEntity tileEntity = new TileEntity();
+			class FakeTileEntity extends TileEntity{}
+			TileEntity tileEntity = new FakeTileEntity();
 			tileEntity.readFromNBT(message.compound);
-			FMLClientHandler.instance().getWorldClient().getTileEntity(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord).readFromNBT(message.compound);
+			FMLClientHandler.instance().getWorldClient().getTileEntity(tileEntity.getPos()).readFromNBT(message.compound);
 			return null;
 		}
-		
 	}
+	
+
 
 }

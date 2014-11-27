@@ -1,8 +1,8 @@
 package com.shieldbug1.core.event;
 
-import com.shieldbug1.lib.util.Holiday;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
-import cpw.mods.fml.common.eventhandler.Event;
+import com.shieldbug1.lib.util.Holiday;
 /**
  * Fired once if there is a holiday that is currently active during post-init.
  */

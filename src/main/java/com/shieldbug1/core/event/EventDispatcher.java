@@ -1,8 +1,8 @@
 package com.shieldbug1.core.event;
 
-import com.shieldbug1.lib.util.Holiday;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 
-import cpw.mods.fml.common.eventhandler.EventBus;
+import com.shieldbug1.lib.util.Holiday;
 
 public final class EventDispatcher
 {

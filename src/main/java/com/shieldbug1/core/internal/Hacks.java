@@ -3,7 +3,7 @@ package com.shieldbug1.core.internal;
 import java.io.FilterOutputStream;
 import java.io.PrintStream;
 
-import cpw.mods.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public final class Hacks
 {
