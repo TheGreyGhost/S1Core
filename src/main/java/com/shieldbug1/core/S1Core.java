@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.shieldbug1.core.api.LoadingModule;
+import com.shieldbug1.core.internal.asm.InternalEnvironment;
 import com.shieldbug1.core.internal.proxy.InternalProxy;
 import com.shieldbug1.core.network.DefaultPackets;
 import com.shieldbug1.lib.mods.Mods;
@@ -38,6 +39,7 @@ public final class S1Core implements ModBase
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		InternalEnvironment.discoverLoadingModules();
 		for(LoadingModule module : loadingModules)
 		{
 			module.preInit(event);

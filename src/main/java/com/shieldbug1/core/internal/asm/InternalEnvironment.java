@@ -1,5 +1,7 @@
 package com.shieldbug1.core.internal.asm;
 
+import static org.apache.logging.log4j.Level.*;
+
 import java.io.File;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import com.shieldbug1.core.internal.Hacks;
 import com.shieldbug1.core.util.ResourceHelper;
 import com.shieldbug1.lib.java.Java;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.IFMLCallHook;
 
 public class InternalEnvironment implements IFMLCallHook
@@ -25,12 +28,13 @@ public class InternalEnvironment implements IFMLCallHook
 			Hacks.setErrToOriginal();
 			Hacks.setOutToOriginal();
 		}
-		this.discoverLoadingModules();
 		return null;
 	}
 
-	private void discoverLoadingModules()
+	public static void discoverLoadingModules()
 	{
+		S1Core.loadingModules.clear();
+		FMLLog.log(S1Core.MOD_ID, INFO, "Searching for LoadingModules.");
 		S1ClassDiscoverer classDiscoverer = new S1ClassDiscoverer(
 				new Predicate<String>()
 				{
@@ -45,7 +49,7 @@ public class InternalEnvironment implements IFMLCallHook
 				LoadingModule.class
 				);
 		classDiscoverer.find();
-		
+		FMLLog.log(S1Core.MOD_ID, INFO, "Finished searching for LoadingModules.");
 		for(Class<?> clazz : classDiscoverer.found)
 		{
 			try
@@ -53,9 +57,11 @@ public class InternalEnvironment implements IFMLCallHook
 				LoadingModule module = (LoadingModule) clazz.newInstance();
 				module.setUp();
 				S1Core.loadingModules.add(module);
+				FMLLog.log(S1Core.MOD_ID, TRACE, "Loaded %s successfully.", clazz.getSimpleName());
 			}
 			catch(Exception e)
 			{
+				FMLLog.log(S1Core.MOD_ID, ERROR, e, "Failed to load %s.", clazz.getSimpleName());
 				Java.<RuntimeException>throwUnchecked(e);
 			}
 		}

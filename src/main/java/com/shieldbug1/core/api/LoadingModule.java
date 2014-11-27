@@ -9,11 +9,11 @@ import cpw.mods.fml.common.event.*;
  */
 public interface LoadingModule
 {
+	public abstract void setUp();
+	
 	public abstract void preInit(FMLPreInitializationEvent event);
 	
 	public abstract void init(FMLInitializationEvent event);
 	
 	public abstract void postInit(FMLPostInitializationEvent event);
-
-	public abstract void setUp();
 }

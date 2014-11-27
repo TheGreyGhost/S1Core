@@ -51,7 +51,8 @@ public class S1ClassDiscoverer //Based off CB's ClassDiscoverer
 		HashSet<String> searchedSources = Sets.newHashSet();
 		for(File minecraftSource : this.loader.getParentSources())
 		{
-			if(searchedSources.contains(minecraftSource.getAbsolutePath())) //Have we searched this already?
+			System.out.println(minecraftSource.getName());
+			if(searchedSources.contains(minecraftSource.getAbsolutePath()) || !this.checkModsDirectory(minecraftSource)) //Have we searched this already?
 			{
 				continue;
 			}
@@ -68,6 +69,29 @@ public class S1ClassDiscoverer //Based off CB's ClassDiscoverer
 				this.readFromDirectory(minecraftSource, minecraftSource);
 			}
 		}
+	}
+
+	private boolean checkModsDirectory(File minecraftSource)
+	{
+		/* 
+		 * This ensure we only search mods and the bin directory (otherwise we also search every single
+		 * referenced library which takes way too long).
+		 */
+		if(minecraftSource.getName().equals("bin"))
+		{
+			return true;
+		}
+		File file = minecraftSource.getParentFile();
+		do
+		{
+			if(file.getName().equals("mods"))
+			{
+				return true;
+			}
+			file = file.getParentFile();
+		}
+		while(file != null);
+		return false;
 	}
 
 	private void readFromDirectory(File directory, File baseDirectory)
