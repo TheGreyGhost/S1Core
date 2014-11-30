@@ -1,14 +1,14 @@
 package com.shieldbug1.core;
 
-import java.util.List;
+import java.util.Set;
 
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.shieldbug1.core.api.LoadingModule;
-import com.shieldbug1.core.internal.asm.InternalEnvironment;
+import com.shieldbug1.core.internal.launch.InternalEnvironment;
 import com.shieldbug1.core.internal.proxy.InternalProxy;
 import com.shieldbug1.core.network.DefaultPackets;
 import com.shieldbug1.lib.mods.Mods;
@@ -30,7 +30,7 @@ public final class S1Core implements ModBase
 	public static final String MOD_ID = "S1CORE";
 	public static final String VERSION = "@VERSION@";
 	public static final int serialID = 0;
-	public static final List<LoadingModule> loadingModules = Lists.newLinkedList();
+	public static final Set<LoadingModule> loadingModules = Sets.newLinkedHashSet();
 	
 	
 	@SidedProxy(clientSide = "com.shieldbug1.core.internal.proxy.InternalClientProxy", serverSide = "com.shieldbug1.core.internal.proxy.InternalServerProxy")

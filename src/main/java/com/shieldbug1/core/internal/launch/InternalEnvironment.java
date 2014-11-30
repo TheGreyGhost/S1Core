@@ -1,8 +1,7 @@
-package com.shieldbug1.core.internal.asm;
+package com.shieldbug1.core.internal.launch;
 
 import static org.apache.logging.log4j.Level.*;
 
-import java.io.File;
 import java.util.Map;
 
 import net.minecraftforge.fml.common.FMLLog;
@@ -28,7 +27,17 @@ public class InternalEnvironment implements IFMLCallHook
 			Hacks.setErrToOriginal();
 			Hacks.setOutToOriginal();
 		}
+		this.checkDependencies();
 		return null;
+	}
+
+	private void checkDependencies()
+	{
+		Package lib = Package.getPackage("com.shieldbug1.lib");
+		if(lib == null)
+		{
+			new DependencyDownloader().load();
+		}
 	}
 
 	public static void discoverLoadingModules()
@@ -70,7 +79,7 @@ public class InternalEnvironment implements IFMLCallHook
 	@Override
 	public void injectData(Map<String, Object> data)
 	{
-		ResourceHelper.init((File)data.get("mcLocation"));
+		ResourceHelper.init();
 		isDevEnv = !(boolean) data.get("runtimeDeobfuscationEnabled");
 	}
 	

@@ -3,6 +3,7 @@ package com.shieldbug1.core.util;
 import java.io.*;
 
 import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.relauncher.FMLInjectionData;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
@@ -16,7 +17,8 @@ import com.shieldbug1.lib.java.Java;
 
 public final class ResourceHelper
 {
-	private static File mcDir;
+	public static final File MC_DIRECTORY = (File) FMLInjectionData.data()[6];
+	public static final File MODS_DIRECTORY = new File(MC_DIRECTORY, "mods");
 	
 	private ResourceHelper(){}
 	
@@ -34,19 +36,11 @@ public final class ResourceHelper
 			});
 
 	/**
-	 * @return the Minecraft directory.
-	 */
-	public static File getMinecraftDirectory()
-	{
-		return mcDir;
-	}
-	
-	/**
 	 * @return the schematic directory.
 	 */
 	public static File getSchematicDirectory()
 	{
-		return new File(getMinecraftDirectory(), "mods" + File.separator + "schematics");
+		return new File(MODS_DIRECTORY, "schematics");
 	}
 	
 	/**
@@ -123,9 +117,8 @@ public final class ResourceHelper
 		}
 	}
 	
-	public static void init(File dir)
+	public static void init()
 	{
-		mcDir = dir;
 		getSchematicDirectory().mkdirs(); // Ensures schematic directory exists!
 		makeSchematicTemplates();
 	}

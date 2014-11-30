@@ -1,6 +1,9 @@
-package com.shieldbug1.core.internal.asm;
+package com.shieldbug1.core.internal.launch;
 
 import java.util.Map;
+
+import com.shieldbug1.core.internal.asm.CoreTransformer;
+import com.shieldbug1.core.internal.asm.WorldTransformer;
 
 import net.minecraftforge.fml.relauncher.*;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
