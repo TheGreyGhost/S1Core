@@ -46,6 +46,30 @@ minecraft {
     replace "@VERSION@", "${config.mod_version}"
 }
 
+jar {
+	manifest {
+		attributes 'FMLCorePlugin': 'com.shieldbug1.core.internal.launch.S1CorePlugin'
+	}
+}
+
+task deobfJar(type: Jar) {
+	from sourceSets.main.output
+	classifier = 'deobf'
+}
+
+task sourceJar(type: Jar) {
+	from sourceSets.main.allSource
+	classifier = 'sources'
+}
+
+tasks.build.dependsOn('sourceJar', 'deobfJar')
+
+artifacts {
+	archives deobfJar
+	archives sourceJar
+	archives jar
+}
+
 dependencies {
 	//compile 'group:name:version'
 }
