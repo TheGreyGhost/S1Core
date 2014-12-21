@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 
 /**
- * Implement this in a block class, to allow for it to only be broken conditionally.
+ * Implement this in a Block class, to allow for it to only be broken conditionally.
  */
 public interface IConditionalBreak
 {

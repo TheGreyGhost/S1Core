@@ -1,5 +1,6 @@
 package com.shieldbug1.core.network;
 
+import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -19,8 +20,8 @@ public final class DefaultPackets
 	
 	public static void init()
 	{
-		registerMessage(MessageTileEntity.class, MessageTileEntity.Handler.class, Side.CLIENT);
-		registerMessage(MessageSyncEntityProperties.class, MessageSyncEntityProperties.Handler.class, Side.CLIENT);
+		registerMessage(MessageTileEntity.class, MessageTileEntity.Handler.class, CLIENT);
+		registerMessage(MessageSyncEntityProperties.class, MessageSyncEntityProperties.Handler.	class, CLIENT);
 	}
 	
 	private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<REQ> requestMessageType, Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, Side side)

@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.registry.GameData;
 
 import com.google.common.collect.Lists;
 import com.google.gson.*;
+import com.shieldbug1.lib.util.Sides;
 
 /**
  * This is the schematic class for World generation. They should be cached, and only recreated when lost.
@@ -73,7 +74,7 @@ public final class Schematic
 	}
 	
 	/**
-	 * Convience method. See {@link #setBlock(int, int, int, Block)} and {@link #setMetadata(int, int, int, int)}
+	 * Convenience method. See {@link #setBlock(int, int, int, Block)} and {@link #setMetadata(int, int, int, int)}
 	 */
 	public void setBlockWithMetadata(int x, int y, int z, Block block, int meta)
 	{
@@ -110,7 +111,7 @@ public final class Schematic
 	 */
 	public void spawnInWorld(World world, BlockPos pos)
 	{
-		if(!world.isRemote) //Only set blocks on server
+		if(Sides.logicalServer(world))
 		{
 			for(int i = 0; i < this.size.value(); i++)//y-axis
 			{
@@ -122,11 +123,12 @@ public final class Schematic
 						final Block block = this.blockArray[i][j][k];
 						if(block != null)
 						{
-							world.setBlockState(
-									pos.add(this.flipX ? this.size.value() - j : j,
+							BlockPos temp = pos.add(
+									this.flipX ? this.size.value() - j : j,
 									this.flipY ? this.size.value() - i : i,
-									this.flipZ ? this.size.value() - k : k),
-									block.getStateFromMeta(meta), 3);
+									this.flipZ ? this.size.value() - k : k);
+					//	world.getChunkFromBlockCoords(temp).setBlockState(temp, block.getStateFromMeta(meta)); TODO Use chunks to get around light checks.
+							world.setBlockState(temp, block.getStateFromMeta(meta), 3);
 						}
 					}
 				}
@@ -139,7 +141,7 @@ public final class Schematic
 	 */
 	public void spawnInWorldWherePossible(World world, BlockPos start)
 	{
-		if(!world.isRemote) //Only set blocks on server
+		if(Sides.logicalServer(world)) //Only set blocks on server
 		{
 			for(int i = 0; i < this.size.value(); i++)//y-axis
 			{
@@ -173,7 +175,7 @@ public final class Schematic
 	public List<ItemStack> breakBlocks(World world, BlockPos start, int fortuneLevel)
 	{
 		List<ItemStack> drops = Lists.newArrayListWithExpectedSize(this.size.value() * this.size.value() * this.size.value() / 2); //Half the block expected to drop something approximately.
-		if(!world.isRemote) //Only break blocks on the server.
+		if(Sides.logicalServer(world)) //Only break blocks on the server.
 		{
 			for(int i = 0; i < this.size.value(); i++)//y-axis
 			{
@@ -204,7 +206,7 @@ public final class Schematic
 	public List<ItemStack> breakAndReplaceBlocks(World world, BlockPos start, int fortuneLevel)
 	{
 		List<ItemStack> drops = Lists.newArrayListWithExpectedSize(this.size.value() * this.size.value() * this.size.value() / 2); //Half the block expected to drop something approximately.
-		if(!world.isRemote) //Only break blocks on the server.
+		if(Sides.logicalServer(world)) //Only break blocks on the server.
 		{
 			for(int i = 0; i < this.size.value(); i++)//y-axis
 			{

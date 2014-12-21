@@ -11,9 +11,9 @@ import com.shieldbug1.core.network.DefaultPackets;
 public abstract class TileEntityBase extends TileEntity
 {
 	/** The direction this TileEntity is facing. */
-	protected EnumFacing orientation;
+	private EnumFacing orientation;
 	/** The custom-name this TileEntity has. */
-	protected String customName;
+	private String customName;
 	
 	protected TileEntityBase()
 	{

@@ -1,11 +1,16 @@
 package com.shieldbug1.core.internal.asm;
 
+import java.util.List;
+
 import net.minecraft.tileentity.TileEntity;
 
 import com.shieldbug1.core.api.IPlaceNotified;
+import com.shieldbug1.lib.util.Sides;
 
 public final class S1CoreHooks
 {
+	public static final String NAME = S1CoreHooks.class.getName().replace('.', '/');
+
 	private S1CoreHooks(){}
 	
 	/**
@@ -14,9 +19,10 @@ public final class S1CoreHooks
 	 */
 	public static void onTileEntityCreated(TileEntity tileEntity)
 	{
-		if(tileEntity instanceof IPlaceNotified && !tileEntity.getWorld().isRemote)
+		if(tileEntity instanceof IPlaceNotified && Sides.logicalServer(tileEntity.getWorld()))
 		{
 			((IPlaceNotified)tileEntity).onPlaced();
 		}
+		List<String> l = null;
 	}
 }
