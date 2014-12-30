@@ -20,6 +20,14 @@ public class InternalEnvironment implements IFMLCallHook
 			Hacks.setErrToOriginal();
 			Hacks.setOutToOriginal();
 		}
+		try
+		{
+			Class.forName("com.shieldbug1.lib.java.Java");
+		}
+		catch(Exception e) //No S1Lib downloaded!
+		{
+			
+		}
 		S1Core.discoverLoadingModules();
 		return null;
 	}
@@ -34,13 +42,5 @@ public class InternalEnvironment implements IFMLCallHook
 	public static boolean isDevEnv()
 	{
 		return isDevEnv;
-	}
-	
-	private static class MissingLibraryException extends RuntimeException
-	{
-		public MissingLibraryException(String message)
-		{
-			super(message);
-		}
 	}
 }

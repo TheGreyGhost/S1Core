@@ -1,8 +1,10 @@
 package com.shieldbug1.core.internal;
 
+import static com.shieldbug1.lib.util.CoreFunctions.checkNotNull;
 import static com.shieldbug1.lib.util.CoreFunctions.nullDefaultFunction;
 
-import com.google.common.base.*;
+import com.google.common.base.Function;
+import com.google.common.base.Supplier;
 import com.shieldbug1.lib.math.MathUtils;
 
 /**
@@ -48,10 +50,9 @@ public final class InternalProperties
 		
 		private Property(String valueName, Function<String, T> parseFunction, T defaultValue)
 		{
-			Preconditions.checkNotNull(parseFunction, "Property needs a parseFunction, and it can not be null!");
 			this.stringValue = System.getProperty(valueName);
 			this.defaultValue = defaultValue;
-			this.transformation = parseFunction;
+			this.transformation = checkNotNull(parseFunction, "Property needs a parseFunction, and it can not be null!");
 		}
 		
 		/**

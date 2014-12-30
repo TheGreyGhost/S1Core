@@ -1,4 +1,4 @@
-package com.shieldbug1.core;
+package com.shieldbug1.core.util;
 
 import static com.shieldbug1.core.S1Core.MOD_ID;
 import static org.apache.logging.log4j.Level.*;
@@ -18,6 +18,7 @@ import org.objectweb.asm.tree.ClassNode;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.*;
+import com.shieldbug1.core.S1Core;
 import com.shieldbug1.lib.asm.ASMHelper;
 import com.shieldbug1.lib.java.Java;
 

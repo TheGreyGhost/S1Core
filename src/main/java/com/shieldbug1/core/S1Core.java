@@ -14,6 +14,7 @@ import com.google.common.collect.Sets;
 import com.shieldbug1.core.api.LoadingModule;
 import com.shieldbug1.core.internal.proxy.InternalProxy;
 import com.shieldbug1.core.network.DefaultPackets;
+import com.shieldbug1.core.util.S1ClassDiscoverer;
 import com.shieldbug1.lib.java.Java;
 import com.shieldbug1.lib.mods.Mods;
 import com.shieldbug1.lib.mods.S1Mods;
