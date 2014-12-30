@@ -1,15 +1,18 @@
 package com.shieldbug1.core.internal.asm;
 
-import java.util.List;
-
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.IBlockAccess;
 
 import com.shieldbug1.core.api.IPlaceNotified;
+import com.shieldbug1.core.api.S1CoreAPI;
 import com.shieldbug1.lib.util.Sides;
 
 public final class S1CoreHooks
 {
-	public static final String NAME = S1CoreHooks.class.getName().replace('.', '/');
+	public static final String HOOKS_CLASS = S1CoreHooks.class.getName().replace('.', '/');
 
 	private S1CoreHooks(){}
 	
@@ -23,6 +26,11 @@ public final class S1CoreHooks
 		{
 			((IPlaceNotified)tileEntity).onPlaced();
 		}
-		List<String> l = null;
 	}
+	
+	//TODO JAVADOC
+	public static boolean renderCustomBlock(IBlockState state, BlockPos pos, IBlockAccess access, WorldRenderer renderer)
+	{
+		return S1CoreAPI.instance().getRenderingHandlerForBlock(state.getBlock()).render(state, pos, access, renderer);
+	}//TODO Fix rendering.
 }

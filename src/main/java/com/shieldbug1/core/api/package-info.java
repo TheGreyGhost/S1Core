@@ -46,7 +46,7 @@
  * </ol> 
  */
 @API(apiVersion = "1.0", owner = S1Core.MOD_ID, provides = "S1CORE|API")
-package com.shieldbug1.core.api;
+package com.shieldbug1.core.api; //TODO continue API contract
 import net.minecraftforge.fml.common.API;
 
 import com.shieldbug1.core.S1Core;
